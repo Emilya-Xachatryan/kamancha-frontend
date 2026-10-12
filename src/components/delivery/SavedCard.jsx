@@ -1,114 +1,118 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import styles from "./SavedCard.module.css";
 
-function SavedCard({ card, onDelete }) {
+function SavedCard({ card, onDelete, onEdit, show3DCard = true }) {
   const [flipped, setFlipped] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFlipped(true);
-    }, 3500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  if (!card || !show3DCard) {
+    return null;
+  }
 
   const handleFlip = () => {
-    setFlipped((prev) => !prev);
+    setFlipped((previous) => !previous);
   };
 
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
+      <h3 className={styles.heading}>Իմ պահպանված քարտը</h3>
 
-      <div
-        className={`${styles.card} ${
-          flipped ? styles.flipped : ""
-        }`}
-        onClick={handleFlip}
-      >
-
-        <div className={`${styles.face} ${styles.front}`}>
-
-          <div className={styles.top}>
-            <span className={styles.chip}></span>
-
-            <span className={styles.bank}>
-              {card.bankName}
-            </span>
-          </div>
-
-          <div className={styles.cardNumber}>
-            •••• •••• •••• {card.lastFour}
-          </div>
-
-          <div className={styles.bottom}>
-
-            <div>
-              <span className={styles.label}>
-                CARD HOLDER
+      <div className={styles.cardScene}>
+        <div
+          className={`${styles.card} ${flipped ? styles.flipped : ""}`}
+          onClick={handleFlip}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              handleFlip();
+            }
+          }}
+          aria-label="Սեղմիր քարտը՝ այն շրջելու համար"
+        >
+          <div className={`${styles.face} ${styles.front}`}>
+            <div className={styles.top}>
+              <span className={styles.brand}>
+                {card.bankName || "KAMANCHA"}
               </span>
-
-              <strong>
-                {card.cardHolder}
-              </strong>
+              <span className={styles.contactless}>)))</span>
             </div>
 
-            <div>
-              <span className={styles.label}>
-                VALID THRU
-              </span>
+            <div className={styles.chip} />
 
-              <strong>{card.expiry}</strong>
+            <div className={styles.cardNumber}>
+              •••• &nbsp; •••• &nbsp; •••• &nbsp; {card.lastFour}
             </div>
 
+            <div className={styles.bottom}>
+              <div className={styles.holder}>
+                <span className={styles.label}>ՔԱՐՏԱՊԱՆ</span>
+                <span>{card.cardHolder}</span>
+              </div>
+
+              <div className={styles.expiry}>
+                <span className={styles.label}>ԺԱՄԿԵՏ</span>
+                <span>{card.expiry}</span>
+              </div>
+            </div>
+
+            <div className={styles.cardDecor} />
           </div>
 
-          <span className={styles.visa}>
-            VISA
-          </span>
+          <div className={`${styles.face} ${styles.back}`}>
+            <div className={styles.backTop}>
+              {card.bankName || "KAMANCHA"}
+            </div>
 
-        </div>
+            <div className={styles.magneticStripe} />
 
-        <div className={`${styles.face} ${styles.back}`}>
+            <div className={styles.signatureRow}>
+              <div className={styles.signatureBlock}>
+                <span className={styles.label}>ՔԱՐՏԱՊԱՆ</span>
+                <div className={styles.signature}>
+                  {card.cardHolder}
+                </div>
+              </div>
 
-          <div className={styles.blackStrip}></div>
+              <div className={styles.cvvBlock}>
+                <span className={styles.label}>CVV</span>
+                <div className={styles.cvvDots}>•••</div>
+              </div>
+            </div>
 
-          <div className={styles.signature}>
-            <span>AUTHORIZED SIGNATURE</span>
-
-            <div>
-              <span>••••••••••••••</span>
-              <strong>{card.cvv}</strong>
+            <div className={styles.backBottom}>
+              Քարտի համարն ավարտվում է {card.lastFour}-ով
             </div>
           </div>
-
-          <p>
-            This card is protected and belongs
-            to the registered customer.
-          </p>
-
-          <span className={styles.visa}>
-            VISA
-          </span>
-
         </div>
-
       </div>
 
-      <div className={styles.info}>
-        <span>
-          Սեղմեք քարտի վրա՝ շրջելու համար
-        </span>
+      <p className={styles.flipHint}>
+        Սեղմիր քարտի վրա՝ այն շրջելու համար
+      </p>
 
+      <p className={styles.savedMessage}>
+        ✓ Քարտի տվյալները պահպանված են
+      </p>
+
+      <div className={styles.actions}>
         <button
           type="button"
-          onClick={onDelete}
+          className={styles.changeButton}
+          onClick={onEdit}
         >
           Փոխել քարտը
         </button>
-      </div>
 
-    </div>
+        <button
+          type="button"
+          className={styles.deleteButton}
+          onClick={onDelete}
+        >
+          Ջնջել քարտը
+        </button>
+      </div>
+    </section>
   );
 }
 

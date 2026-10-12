@@ -1,92 +1,138 @@
+.cardFormWrapper {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  color: #f5ead0;
+}
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 17px;
+  padding: 20px;
+  border: 1px solid rgba(201, 174, 85, 0.25);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top, rgba(201, 174, 85, 0.06), transparent 65%),
+    #0d0c0a;
 }
 
 .inputGroup {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 
 .inputGroup label {
-  color: #aaa;
+  color: #d4af37;
   font-size: 13px;
 }
 
 .inputGroup input {
-  width: 100%;
-  padding: 13px 14px;
   box-sizing: border-box;
-
-  border: 1px solid #292929;
-  border-radius: 7px;
-
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid rgba(201, 174, 85, 0.35);
+  border-radius: 8px;
   outline: none;
-  background: #080808;
-  color: #fff;
-
+  background: #15130f;
+  color: #fff3d1;
   font-size: 14px;
-
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.inputGroup input::placeholder {
-  color: #555;
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 
 .inputGroup input:focus {
   border-color: #d4af37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.inputGroup input::placeholder {
+  color: #8c816a;
 }
 
 .row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  display: flex;
+  gap: 14px;
 }
 
 .saveButton,
 .cancelButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-sizing: border-box;
   width: 100%;
+  min-height: 46px;
   padding: 14px;
-  border-radius: 7px;
-  cursor: pointer;
+  border-radius: 8px;
   font-size: 14px;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 
 .saveButton {
-  margin-top: 5px;
   border: 1px solid #d4af37;
-  background: #d4af37;
-  color: #060606;
-  font-weight: 600;
+  background: linear-gradient(135deg, #d4af37, #a47a25);
+  color: #100e09;
 }
 
-.saveButton:hover {
-  background: #f0d36b;
+.saveButton:hover:not(:disabled) {
   transform: translateY(-2px);
+  background: linear-gradient(135deg, #f1d777, #c9ae55);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.15);
+}
+
+.saveButton:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.buttonArrow {
+  font-size: 20px;
+  transition: transform 0.25s;
+}
+
+.saveButton:hover .buttonArrow {
+  transform: translateX(5px);
 }
 
 .cancelButton {
-  margin-top: -8px;
-  border: 1px solid #292929;
+  border: 1px solid #9e8034;
   background: transparent;
-  color: #888;
+  color: #d4af37;
 }
 
 .cancelButton:hover {
-  border-color: #555;
-  color: #fff;
+  background: rgba(212, 175, 55, 0.1);
 }
 
-@media (max-width: 450px) {
+@media (max-width: 420px) {
+  .form {
+    padding: 15px 12px;
+  }
+
   .row {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 10px;
+  }
+
+  .inputGroup input {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saveButton,
+  .cancelButton,
+  .buttonArrow {
+    transition: none;
   }
 }

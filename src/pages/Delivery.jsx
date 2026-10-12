@@ -1,137 +1,200 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useCart } from "../context/CartContext";
-
-import DeliveryProducts from "../components/delivery/DeliveryProducts";
 import CardForm from "../components/delivery/CardForm";
 import SavedCard from "../components/delivery/SavedCard";
-
 import styles from "./Delivery.module.css";
 
 const API_URL = "http://localhost:5000";
 
 function Delivery() {
-  const { cart, cartTotal, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const [savedCard, setSavedCard] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
-  const [isOrdering, setIsOrdering] = useState(false);
-  const [orderSuccess, setOrderSuccess] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const [customer, setCustomer] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
     address: "",
-    notes: "",
+    comment: "",
   });
 
+  // Բեռնում ենք պահպանված քարտն ու զամբյուղի ապրանքները
   useEffect(() => {
     try {
-      const card = localStorage.getItem("savedCard");
+      const storedCard = localStorage.getItem("kamanchaSavedCard");
 
-      if (card) {
-        setSavedCard(JSON.parse(card));
+      if (storedCard) {
+        const parsedCard = JSON.parse(storedCard);
+
+        if (
+          parsedCard &&
+          parsedCard.bankName &&
+          parsedCard.cardHolder &&
+          parsedCard.lastFour &&
+          parsedCard.expiry
+        ) {
+          setSavedCard(parsedCard);
+        }
       }
-    } catch (error) {
-      console.error("Քարտի տվյալները կարդալու սխալ:", error);
+    } catch (err) {
+      console.error("Քարտի տվյալները կարդալ չհաջողվեց:", err);
+    }
+
+    try {
+      const possibleKeys = ["cart", "kamanchaCart", "cartItems"];
+      let foundItems = [];
+
+      for (const key of possibleKeys) {
+        const storedCart = localStorage.getItem(key);
+
+        if (storedCart) {
+          const parsedCart = JSON.parse(storedCart);
+
+          if (Array.isArray(parsedCart) && parsedCart.length > 0) {
+            foundItems = parsedCart;
+            break;
+          }
+        }
+      }
+
+      setCartItems(foundItems);
+    } catch (err) {
+      console.error("Զամբյուղի տվյալները կարդալ չհաջողվեց:", err);
     }
   }, []);
 
-  const handleCustomerChange = (event) => {
+  // Պահպանում ենք միայն քարտի անվտանգ ցուցադրման տվյալները
+  const saveCard = (cardData) => {
+    try {
+      const safeCard = {
+        bankName: cardData.bankName,
+        cardHolder: cardData.cardHolder,
+        lastFour: cardData.lastFour,
+        expiry: cardData.expiry,
+      };
+
+      localStorage.setItem(
+        "kamanchaSavedCard",
+        JSON.stringify(safeCard)
+      );
+
+      setSavedCard(safeCard);
+      setShowForm(false);
+      setError("");
+    } catch (err) {
+      console.error("Քարտը պահպանել չհաջողվեց:", err);
+      setError("Քարտի տվյալները պահպանել չհաջողվեց։");
+    }
+  };
+
+  const editCard = () => {
+    setShowForm(true);
+  };
+
+  const deleteCard = () => {
+    try {
+      localStorage.removeItem("kamanchaSavedCard");
+      setSavedCard(null);
+      setShowForm(true);
+      setError("");
+    } catch (err) {
+      console.error("Քարտը ջնջել չհաջողվեց:", err);
+      setError("Քարտը ջնջել չհաջողվեց։");
+    }
+  };
+
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    setCustomer((previous) => ({
+    setFormData((previous) => ({
       ...previous,
       [name]: value,
     }));
   };
 
-  const saveCard = (cardData) => {
-    // Պահպանում ենք միայն ցուցադրման համար անհրաժեշտ տվյալները։
-    // CVV և քարտի ամբողջական համարը չենք պահպանում։
-    const safeCardData = {
-      bankName: cardData.bankName,
-      cardHolder: cardData.cardHolder,
-      lastFour: cardData.lastFour,
-      expiry: cardData.expiry,
-    };
+  const getItemName = (item) =>
+    item.name || item.title || item.productName || "Ուտեստ";
 
-    localStorage.setItem(
-      "savedCard",
-      JSON.stringify(safeCardData)
-    );
+  const getItemPrice = (item) =>
+    Number(item.price ?? item.finalPrice ?? 0);
 
-    setSavedCard(safeCardData);
-    setShowForm(false);
-  };
+  const getItemQuantity = (item) =>
+    Number(item.quantity ?? item.count ?? 1);
 
-  const deleteCard = () => {
-    localStorage.removeItem("savedCard");
-    setSavedCard(null);
-    setShowForm(true);
-  };
+  const totalPrice = cartItems.reduce((total, item) => {
+    return total + getItemPrice(item) * getItemQuantity(item);
+  }, 0);
 
-  const handleOrder = async (event) => {
+  // Պատվերն ուղարկում ենք backend-ին
+  const handleOrderSubmit = async (event) => {
     event.preventDefault();
 
-    if (isOrdering || orderSuccess) {
-      return;
-    }
+    setError("");
+    setSuccess(false);
 
-    setErrorMessage("");
-
-    if (cart.length === 0) {
-      setErrorMessage("Ձեր զամբյուղը դատարկ է։");
+    if (cartItems.length === 0) {
+      setError("Զամբյուղը դատարկ է։ Նախ ավելացրու ուտեստներ։");
       return;
     }
 
     if (
-      !customer.name.trim() ||
-      !customer.phone.trim() ||
-      !customer.address.trim()
+      !formData.name.trim() ||
+      !formData.phone.trim() ||
+      !formData.address.trim()
     ) {
-      setErrorMessage(
-        "Խնդրում ենք լրացնել անունը, հեռախոսահամարը և հասցեն։"
-      );
+      setError("Լրացրու անունը, հեռախոսահամարը և հասցեն։");
       return;
     }
 
-    const invalidItems = cart.some(
-      (product) =>
-        !Number.isInteger(Number(product.id)) ||
-        !Number.isInteger(Number(product.quantity)) ||
-        Number(product.quantity) < 1
+    // Backend-ը պահանջում է յուրաքանչյուր ուտեստի թվային ID-ն
+    // և քանակը։ Գինը backend-ը պետք է հաշվի իր տվյալներից։
+    const items = cartItems.map((item) => ({
+      id: Number(item.id),
+      quantity: Number(item.quantity ?? item.count ?? 1),
+    }));
+
+    const invalidItem = items.some(
+      (item) =>
+        !Number.isInteger(item.id) ||
+        item.id <= 0 ||
+        !Number.isInteger(item.quantity) ||
+        item.quantity <= 0
     );
 
-    if (invalidItems) {
-      setErrorMessage(
-        "Զամբյուղում ապրանքի տվյալները սխալ են։ Խնդրում ենք ստուգել զամբյուղը։"
+    if (invalidItem) {
+      console.error("Սխալ զամբյուղի տվյալներ:", cartItems);
+
+      setError(
+        "Զամբյուղի ապրանքների ID-ն կամ քանակը սխալ է։ " +
+          "Ստուգիր, որ յուրաքանչյուր ուտեստ ունենա backend-ի հետ համապատասխան թվային ID։"
       );
+
       return;
     }
 
-    setIsOrdering(true);
+    // Պահանջվող կառուցվածքը՝ { customer, items }
+    const orderData = {
+      customer: {
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        address: formData.address.trim(),
+        notes: formData.comment.trim(),
+      },
+      items,
+    };
+
+    console.log("Ուղարկվող պատվերը:", orderData);
+
+    setLoading(true);
 
     try {
-      const orderData = {
-        customer: {
-          name: customer.name.trim(),
-          phone: customer.phone.trim(),
-          email: customer.email.trim(),
-          address: customer.address.trim(),
-          notes: customer.notes.trim(),
-        },
-
-        items: cart.map((product) => ({
-          id: Number(product.id),
-          quantity: Number(product.quantity),
-        })),
-      };
-
       const response = await fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
@@ -144,271 +207,248 @@ function Delivery() {
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Չհաջողվեց գրանցել պատվերը։"
+          data.message ||
+            data.error ||
+            "Պատվերը գրանցել չհաջողվեց։"
         );
       }
 
-      setOrderId(data.order?.id ?? null);
-      setOrderSuccess(true);
-      clearCart();
-    } catch (error) {
-      console.error("Պատվերի գրանցման սխալ:", error);
+      setSuccess(true);
+      setError("");
+      setCartItems([]);
 
-      setErrorMessage(
-        error.message === "Failed to fetch"
-          ? "Չհաջողվեց կապ հաստատել սերվերի հետ։ Ստուգեք backend-ի աշխատանքը։"
-          : error.message || "Պատվերի գրանցման ժամանակ սխալ առաջացավ։"
-      );
+      // Մաքրում ենք զամբյուղի պահպանված տվյալները
+      ["cart", "kamanchaCart", "cartItems"].forEach((key) => {
+        localStorage.removeItem(key);
+      });
+
+      setFormData({
+        name: "",
+        phone: "",
+        address: "",
+        comment: "",
+      });
+    } catch (err) {
+      console.error("Պատվերի սխալ:", err);
+
+      if (err.message === "Failed to fetch") {
+        setError(
+          "Սերվերին միանալ չհաջողվեց։ Ստուգիր՝ backend-ը միացվա՞ծ է, " +
+            "և CORS-ը թույլատրո՞ւմ է frontend-ի հարցումները։"
+        );
+      } else {
+        setError(
+          err.message || "Պատվերի ընթացքում սխալ առաջացավ։"
+        );
+      }
     } finally {
-      setIsOrdering(false);
+      setLoading(false);
     }
   };
 
-  if (orderSuccess) {
-    return (
-      <main className={styles.delivery}>
-        <div className={styles.successContainer}>
-          <div className={styles.successCircle}>
-            <span>✓</span>
-          </div>
-
-          <div className={styles.successLine}></div>
-
-          <h1>Պատվերը գրանցվեց</h1>
-
-          <p>
-            Ձեր պատվերը հաջողությամբ ընդունվել է։
-            <br />
-            Շնորհակալություն մեր ընտրության համար։
-          </p>
-
-          {orderId !== null && (
-            <div className={styles.successDetails}>
-              <span>Պատվերի համար</span>
-              <strong>#{orderId}</strong>
-            </div>
-          )}
-
-          <div className={styles.successDetails}>
-            <span>Պատվերի կարգավիճակ</span>
-            <strong>Ընդունված ✓</strong>
-          </div>
-
-          <div className={styles.successDecor}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  if (cart.length === 0) {
-    return (
-      <main className={styles.delivery}>
-        <div className={styles.empty}>
-          <div className={styles.emptyIcon}>✦</div>
-
-          <h1>Ձեր զամբյուղը դատարկ է</h1>
-
-          <p>
-            Առաքման համար նախ ավելացրեք ուտեստներ
-            զամբյուղում։
-          </p>
-        </div>
-      </main>
-    );
-  }
-
   return (
-    <main className={styles.delivery}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <span>✦</span>
+    <main className={styles.deliveryPage}>
+      <section className={styles.deliveryContainer}>
+        <button
+          type="button"
+          className={styles.backButton}
+          onClick={() => navigate(-1)}
+        >
+          ← Վերադառնալ
+        </button>
 
-          <h1>Պատվերի ձևակերպում</h1>
+        <header className={styles.pageHeader}>
+          <span className={styles.eyebrow}>
+            KAMANCHA YEREVAN
+          </span>
 
-          <p>
-            Լրացրեք առաքման տվյալները և հաստատեք
-            ձեր պատվերը։
+          <h1 className={styles.pageTitle}>
+            Պատվերի <span>ձևակերպում</span>
+          </h1>
+
+          <p className={styles.pageDescription}>
+            Պատվիրիր սիրելի ուտեստները և վայելիր հայկական համերը։
           </p>
         </header>
 
-        <div className={styles.content}>
-          <DeliveryProducts />
+        {success && (
+          <div className={styles.successMessage} role="status">
+            <span className={styles.successIcon}>✓</span>
 
-          <section className={styles.paymentSection}>
-            <div className={styles.sectionTitle}>
-              <span>02</span>
-
-              <div>
-                <h2>Առաքման տվյալներ</h2>
-                <p>Լրացրեք պատվերի ստացման տվյալները</p>
-              </div>
+            <div>
+              <h3>Պատվերը հաջողությամբ գրանցվեց։</h3>
+              <p>
+                Շնորհակալություն Kamancha-ն ընտրելու համար։
+              </p>
             </div>
+          </div>
+        )}
+
+        {error && (
+          <div className={styles.errorMessage} role="alert">
+            {error}
+          </div>
+        )}
+
+        <div className={styles.deliveryGrid}>
+          <section className={styles.orderSection}>
+            <h2 className={styles.sectionTitle}>
+              Առաքման տվյալներ
+            </h2>
 
             <form
-              className={styles.customerForm}
-              onSubmit={handleOrder}
+              className={styles.orderForm}
+              onSubmit={handleOrderSubmit}
             >
-              <div className={styles.customerField}>
-                <label htmlFor="customer-name">
-                  Անուն Ազգանուն *
+              <div className={styles.inputGroup}>
+                <label htmlFor="deliveryName">
+                  Անուն, ազգանուն
                 </label>
 
                 <input
-                  id="customer-name"
-                  type="text"
+                  id="deliveryName"
                   name="name"
-                  value={customer.name}
-                  onChange={handleCustomerChange}
-                  placeholder="Ձեր անունը և ազգանունը"
-                  autoComplete="name"
-                  required
-                  maxLength={100}
-                />
-              </div>
-
-              <div className={styles.customerField}>
-                <label htmlFor="customer-phone">
-                  Հեռախոսահամար *
-                </label>
-
-                <input
-                  id="customer-phone"
-                  type="tel"
-                  name="phone"
-                  value={customer.phone}
-                  onChange={handleCustomerChange}
-                  placeholder="+374 XX XXX XXX"
-                  autoComplete="tel"
-                  required
-                  maxLength={30}
-                />
-              </div>
-
-              <div className={styles.customerField}>
-                <label htmlFor="customer-email">
-                  Էլեկտրոնային փոստ
-                </label>
-
-                <input
-                  id="customer-email"
-                  type="email"
-                  name="email"
-                  value={customer.email}
-                  onChange={handleCustomerChange}
-                  placeholder="example@gmail.com"
-                  autoComplete="email"
-                  maxLength={150}
-                />
-              </div>
-
-              <div className={styles.customerField}>
-                <label htmlFor="customer-address">
-                  Առաքման հասցե *
-                </label>
-
-                <input
-                  id="customer-address"
                   type="text"
-                  name="address"
-                  value={customer.address}
-                  onChange={handleCustomerChange}
-                  placeholder="Փողոց, շենք, բնակարան"
-                  autoComplete="street-address"
+                  placeholder="Մուտքագրիր անունդ"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
-                  maxLength={255}
                 />
               </div>
 
-              <div className={styles.customerField}>
-                <label htmlFor="customer-notes">
+              <div className={styles.inputGroup}>
+                <label htmlFor="deliveryPhone">
+                  Հեռախոսահամար
+                </label>
+
+                <input
+                  id="deliveryPhone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+374 XX XXX XXX"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label htmlFor="deliveryAddress">
+                  Առաքման հասցե
+                </label>
+
+                <input
+                  id="deliveryAddress"
+                  name="address"
+                  type="text"
+                  placeholder="Փողոց, շենք, բնակարան"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label htmlFor="deliveryComment">
                   Լրացուցիչ նշումներ
                 </label>
 
                 <textarea
-                  id="customer-notes"
-                  name="notes"
-                  value={customer.notes}
-                  onChange={handleCustomerChange}
-                  placeholder="Մուտքի կոդ, հարկ կամ այլ մանրամասներ"
-                  rows={3}
-                  maxLength={500}
+                  id="deliveryComment"
+                  name="comment"
+                  placeholder="Մուտքի կամ պատվերի վերաբերյալ նշումներ"
+                  value={formData.comment}
+                  onChange={handleInputChange}
+                  rows={4}
                 />
               </div>
 
-              {errorMessage && (
-                <p
-                  className={styles.errorMessage}
-                  role="alert"
-                >
-                  {errorMessage}
-                </p>
-              )}
+              <button
+                type="submit"
+                className={styles.orderButton}
+                disabled={loading}
+              >
+                {loading
+                  ? "Պատվերը ուղարկվում է..."
+                  : "Հաստատել պատվերը"}
+              </button>
+            </form>
+          </section>
 
-              <div className={styles.sectionTitle}>
-                <span>03</span>
+          <aside className={styles.paymentSection}>
+            <h2 className={styles.sectionTitle}>
+              Վճարման քարտ
+            </h2>
 
-                <div>
-                  <h2>Վճարման քարտ</h2>
-
-                  <p>
-                    {savedCard
-                      ? "Պահպանված քարտ"
-                      : "Ավելացրեք քարտի տվյալները"}
-                  </p>
-                </div>
-              </div>
-
+            <div className={styles.savedCardArea}>
               {savedCard && !showForm ? (
                 <SavedCard
                   card={savedCard}
+                  onEdit={editCard}
                   onDelete={deleteCard}
+                  show3DCard={true}
                 />
               ) : (
                 <CardForm
                   onSave={saveCard}
-                  onCancel={() => setShowForm(false)}
+                  onCancel={
+                    savedCard
+                      ? () => setShowForm(false)
+                      : undefined
+                  }
                   hasSavedCard={Boolean(savedCard)}
                 />
               )}
+            </div>
 
-              <div className={styles.total}>
-                <div>
-                  <span>Պատվերի ընդհանուր արժեքը</span>
-                  <strong>{cartTotal} ֏</strong>
-                </div>
+            <div className={styles.orderSummary}>
+              <h3>Պատվերի ամփոփում</h3>
 
-                <button
-                  type="submit"
-                  className={`${styles.orderButton} ${
-                    isOrdering ? styles.ordering : ""
-                  }`}
-                  disabled={isOrdering}
-                >
-                  {isOrdering ? (
-                    <span className={styles.orderLoader}>
-                      <span></span>
-                    </span>
-                  ) : (
-                    <>
-                      <span className={styles.orderText}>
-                        Հաստատել պատվերը
-                      </span>
+              {cartItems.length === 0 ? (
+                <p className={styles.emptyCart}>
+                  Զամբյուղը դատարկ է։
+                </p>
+              ) : (
+                <>
+                  <div className={styles.orderItems}>
+                    {cartItems.map((item, index) => (
+                      <div
+                        className={styles.orderItem}
+                        key={
+                          item.id ??
+                          item._id ??
+                          `${getItemName(item)}-${index}`
+                        }
+                      >
+                        <span>
+                          {getItemName(item)} ×{" "}
+                          {getItemQuantity(item)}
+                        </span>
 
-                      <span className={styles.orderArrow}>
-                        →
-                      </span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          </section>
+                        <span>
+                          {(
+                            getItemPrice(item) *
+                            getItemQuantity(item)
+                          ).toLocaleString("hy-AM")}{" "}
+                          ֏
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.totalRow}>
+                    <span>Ընդհանուր</span>
+
+                    <strong>
+                      {totalPrice.toLocaleString("hy-AM")} ֏
+                    </strong>
+                  </div>
+                </>
+              )}
+            </div>
+          </aside>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
