@@ -1,0 +1,58 @@
+.menu {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #060606;
+  color: #fff;
+
+  overflow-x: hidden;
+}
+
+.foodSection {
+  width: 100%;
+
+  padding: 15px 20px 80px;
+
+  background: #060606;
+
+  box-sizing: border-box;
+}
+
+.foodContainer {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .foodSection {
+    padding: 10px 20px 60px;
+  }
+
+  .foodContainer {
+    max-width: 750px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .foodSection {
+    padding: 5px 15px 50px;
+  }
+
+  .foodContainer {
+    max-width: 450px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 400px) {
+  .foodSection {
+    padding: 0 12px 40px;
+  }
+}

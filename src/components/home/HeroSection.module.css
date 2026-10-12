@@ -1,0 +1,111 @@
+.hero {
+  height: 100vh;
+
+  background-image: url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4");
+
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+}
+
+.overlay {
+  width: 100%;
+  height: 110%;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  text-align: center;
+}
+.overlay h1,
+.overlay p,
+.buttons {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease forwards;
+}
+
+/* delay-ներ՝ հերթով հայտնվելու համար */
+.overlay h1 {
+  animation-delay: 0.3s;
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.overlay p {
+  animation-delay: 0.6s;
+  font-size: 18px;
+  color: #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* buttons */
+.buttons {
+  animation-delay: 0.9s;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.buttons a {
+  text-decoration: none;
+  color: inherit;
+}
+.buttons button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* առաջին button */
+.buttons button:first-child {
+  background: #d7ba5d;
+  color: white;
+}
+
+.buttons button:first-child:hover {
+  background:  #d4af37;
+  transform: scale(1.05);
+}
+
+/* երկրորդ button */
+.buttons button:last-child {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.buttons button:last-child:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* animation keyframes */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.buttons button {
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+}

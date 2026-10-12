@@ -1,0 +1,247 @@
+.navbar {
+  height: 80px;
+  background: #201f1f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  position: relative;
+  z-index: 1000;
+}
+
+/* LOGO */
+.navbar h2 {
+  font-family: "Great Vibes", cursive;
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 0;
+  line-height: 1;
+  transform: scaleX(0.92);
+  transform-origin: left center;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.08);
+  transition: all 0.4s ease;
+}
+
+.navbar h2:hover {
+  color: #ffffff;
+  transform: scaleX(0.96);
+  letter-spacing: 1px;
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.16);
+}
+
+/* DESKTOP LINKS */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  list-style: none;
+}
+
+.links a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #c9ae55;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #c9ae55;
+  transition: width 0.3s ease;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+.links a.active {
+  color: #c9ae55;
+}
+
+.links a.active::after {
+  width: 100%;
+}
+
+/* FAVORITES */
+.links button {
+  border: none;
+  background: transparent;
+  color: #c9ae55;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.links button:hover {
+  transform: scale(1.15);
+  color: #ffffff;
+}
+
+/* BURGER */
+.burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(201, 174, 85, 0.5);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.burger span {
+  width: 22px;
+  height: 2px;
+  background: #c9ae55;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.burger:hover {
+  border-color: #c9ae55;
+  box-shadow: 0 0 15px rgba(201, 174, 85, 0.25);
+}
+
+/* BURGER → X */
+.burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .navbar {
+    height: 70px;
+    padding: 0 25px;
+  }
+
+  .navbar h2 {
+    font-size: 27px;
+  }
+
+  .burger {
+    display: flex;
+    position: relative;
+    z-index: 1100;
+  }
+
+  .links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #201f1f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 15px 0 25px;
+    border-top: 1px solid rgba(201, 174, 85, 0.2);
+    border-bottom: 1px solid rgba(201, 174, 85, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .links.showMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .links a {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 17px;
+  }
+
+  .links a::after {
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .links a:hover::after,
+  .links a.active::after {
+    width: 45px;
+  }
+
+  .links li:last-child {
+    margin-top: 8px;
+  }
+
+  .links button {
+    font-size: 22px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .navbar {
+    height: 65px;
+    padding: 0 18px;
+  }
+
+  .navbar h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  .burger {
+    width: 40px;
+    height: 40px;
+  }
+
+  .links {
+    top: 65px;
+  }
+}

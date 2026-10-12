@@ -1,0 +1,156 @@
+.about {
+  background-color: #0f0f0f;
+  padding: 90px 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 60px;
+  color: #d4af37;
+}
+
+/* CARDS */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+/* CARD */
+
+.card {
+  background-color: #181818;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #242424;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: #d4af37;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.12);
+}
+
+/* IMAGE */
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+/* TEXT */
+
+.card h3 {
+  margin: 22px 20px 0;
+  color: #fff;
+  font-size: 24px;
+}
+
+.card p {
+  color: #bdbdbd;
+  padding: 15px 25px 30px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (max-width: 900px) {
+  .about {
+    padding: 70px 25px;
+  }
+
+  .title {
+    font-size: 36px;
+    margin-bottom: 45px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .card img {
+    height: 320px;
+  }
+
+  .card h3 {
+    font-size: 25px;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width: 600px) {
+  .about {
+    padding: 60px 18px;
+  }
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 35px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .card {
+    border-radius: 16px;
+  }
+
+  .card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  .card h3 {
+    font-size: 22px;
+    margin-top: 18px;
+  }
+
+  .card p {
+    font-size: 15px;
+    padding: 12px 20px 25px;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* ========================= */
+/* VERY SMALL PHONES */
+/* ========================= */
+
+@media (max-width: 400px) {
+  .about {
+    padding: 50px 15px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .card img {
+    height: 210px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+}

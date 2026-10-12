@@ -1,0 +1,1679 @@
+.about {
+  width: 100%;
+  min-height: 100vh;
+  background: #080808;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+  position: relative;
+  min-height: 92vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.94),
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.82)
+    );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+
+  width: min(1000px, 90%);
+
+  text-align: center;
+
+  animation: heroShow 1.2s ease;
+}
+
+.heroLabel,
+.sectionLabel {
+  display: block;
+
+  margin-bottom: 20px;
+
+  color: #d4af37;
+
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.heroContent h1 {
+  max-width: 900px;
+
+  margin: 0 auto 25px;
+
+  color: #fff;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(42px, 7vw, 86px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+}
+
+.heroContent p {
+  max-width: 720px;
+
+  margin: 0 auto 35px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 17px;
+
+  line-height: 1.9;
+}
+
+.heroButtons,
+.finalButtons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
+
+.goldButton,
+.outlineButton {
+  min-width: 190px;
+
+  padding: 15px 28px;
+
+  display: inline-flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #d4af37;
+
+  text-decoration: none;
+
+  transition: 0.4s ease;
+}
+
+.goldButton {
+  background: #d4af37;
+  color: #080808;
+}
+
+.goldButton:hover {
+  background: transparent;
+  color: #d4af37;
+
+  box-shadow:
+    0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+.outlineButton {
+  background: transparent;
+  color: #d4af37;
+}
+
+.outlineButton:hover {
+  background: #d4af37;
+  color: #080808;
+}
+
+.scrollIndicator {
+  position: absolute;
+  z-index: 2;
+
+  bottom: 30px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.scrollIndicator span {
+  width: 1px;
+  height: 50px;
+
+  background: #d4af37;
+
+  animation: scrollLine 1.8s infinite;
+}
+
+.scrollIndicator p {
+  margin: 0;
+
+  color: #d4af37;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+}
+
+
+/* ========================================
+   STORY
+======================================== */
+
+.story {
+  width: min(1250px, 90%);
+
+  margin: auto;
+
+  padding: 150px 0;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 100px;
+
+  align-items: center;
+}
+
+.storyImageBox {
+  position: relative;
+
+  transition:
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1s ease;
+}
+
+.storyImageBox img {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 620px;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter: brightness(0.82);
+
+  transition: 0.6s ease;
+}
+
+.storyImageBox:hover img {
+  filter: brightness(1);
+
+  transform: scale(1.015);
+}
+
+.storyFrame {
+  position: absolute;
+
+  inset: 25px -25px -25px 25px;
+
+  border: 1px solid rgba(212, 175, 55, 0.7);
+}
+
+.storyContent {
+  transition:
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
+    opacity 0.9s ease 0.15s;
+}
+
+.storyContent h2,
+.heading h2,
+.finalContent h2,
+.reviewModal h2 {
+  margin: 0 0 25px;
+
+  color: #fff;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(34px, 5vw, 58px);
+
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+.storyContent p {
+  margin-bottom: 20px;
+
+  color: rgba(255, 255, 255, 0.62);
+
+  font-size: 16px;
+
+  line-height: 1.95;
+}
+
+.goldLine {
+  width: 75px;
+  height: 1px;
+
+  margin: 0 0 30px;
+
+  background: #d4af37;
+
+  transition:
+    width 0.8s ease 0.55s,
+    opacity 0.5s ease 0.55s;
+}
+
+
+/* ========================================
+   EXPERIENCE
+======================================== */
+
+.experience {
+  padding: 140px 5%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(212, 175, 55, 0.08),
+      transparent 45%
+    ),
+    #0b0b0b;
+}
+
+.heading {
+  width: min(760px, 90%);
+
+  margin: 0 auto 70px;
+
+  text-align: center;
+}
+
+.heading > p {
+  color: rgba(255, 255, 255, 0.58);
+
+  line-height: 1.8;
+}
+
+.experienceGrid {
+  width: min(1250px, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.experienceCard {
+  overflow: hidden;
+
+  border: 1px solid rgba(212, 175, 55, 0.15);
+
+  background: #101010;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.experienceCard:hover {
+  transform: translateY(-12px) !important;
+
+  border-color: rgba(212, 175, 55, 0.55);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.55);
+}
+
+.experienceImage {
+  position: relative;
+
+  height: 350px;
+
+  overflow: hidden;
+}
+
+.experienceImage img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter: brightness(0.68);
+
+  transition:
+    transform 1.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+}
+
+.experienceCard:hover .experienceImage img {
+  transform: scale(1.08);
+
+  filter: brightness(0.9);
+}
+
+.experienceIcon {
+  position: absolute;
+
+  right: 20px;
+  bottom: 20px;
+
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d4af37;
+
+  background: rgba(0, 0, 0, 0.78);
+
+  font-size: 23px;
+}
+
+.experienceBody {
+  padding: 30px;
+}
+
+.experienceBody h3 {
+  margin: 0 0 14px;
+
+  color: #d4af37;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 25px;
+
+  font-weight: 400;
+}
+
+.experienceBody p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   NUMBERS
+======================================== */
+
+.numbers {
+  position: relative;
+
+  padding: 110px 5%;
+
+  background-position: center;
+
+  background-size: cover;
+
+  background-attachment: fixed;
+}
+
+.numbersOverlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.87);
+}
+
+.numbersGrid {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1100px, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 30px;
+}
+
+.numberItem {
+  text-align: center;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.numberItem strong {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #d4af37;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(42px, 5vw, 70px);
+
+  font-weight: 400;
+}
+
+.numberItem span {
+  color: rgba(255, 255, 255, 0.62);
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+}
+
+.numberVisible strong {
+  animation: numberGlow 1.4s ease both;
+}
+
+
+/* ========================================
+   GALLERY
+======================================== */
+
+.gallery {
+  padding: 150px 5%;
+}
+
+.galleryGrid {
+  width: min(1250px, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 14px;
+}
+
+.galleryItem {
+  position: relative;
+
+  height: 450px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border: none;
+
+  background: #111;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transform: scale(1.05);
+
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+}
+
+.galleryVisible .galleryItem img {
+  transform: scale(1);
+}
+
+.galleryOverlay {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: flex-end;
+
+  padding: 25px;
+
+  background:
+    linear-gradient(
+      transparent 30%,
+      rgba(0, 0, 0, 0.9)
+    );
+
+  opacity: 0;
+
+  transition: 0.4s ease;
+}
+
+.galleryItem:hover img {
+  transform: scale(1.08);
+
+  filter: brightness(0.6);
+}
+
+.galleryItem:hover .galleryOverlay {
+  opacity: 1;
+}
+
+.galleryOverlay span {
+  color: #d4af37;
+
+  font-size: 17px;
+}
+
+.galleryOverlay small {
+  margin-top: 7px;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* ========================================
+   REVIEWS
+======================================== */
+
+.reviews {
+  padding: 140px 5%;
+
+  background: #0c0c0c;
+
+  text-align: center;
+
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reviewSlider {
+  width: min(900px, 100%);
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+.reviewCard {
+  position: relative;
+
+  flex: 1;
+
+  min-height: 310px;
+
+  padding: 60px 45px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(212, 175, 55, 0.2);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(212, 175, 55, 0.07),
+      transparent 65%
+    ),
+    #0c0c0c;
+
+  transition: box-shadow 0.5s ease;
+}
+
+.reviewCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #d4af37,
+      transparent
+    );
+
+  animation: reviewLight 4s ease-in-out infinite;
+}
+
+.reviewChanging {
+  animation: reviewChange 0.8s ease both;
+}
+
+.reviewChanging .reviewStars {
+  animation: reviewStars 0.9s ease both;
+}
+
+.reviewChanging .reviewText {
+  animation: reviewText 0.9s ease 0.08s both;
+}
+
+.reviewChanging .reviewAuthor {
+  animation: reviewAuthor 0.9s ease 0.16s both;
+}
+
+.reviewStars {
+  margin-bottom: 25px;
+
+  color: #d4af37;
+
+  font-size: 21px;
+
+  letter-spacing: 5px;
+}
+
+.reviewText {
+  margin: 0 auto 30px;
+
+  max-width: 680px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 18px;
+
+  line-height: 1.9;
+
+  font-style: italic;
+}
+
+.reviewAuthor {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.reviewAuthor span {
+  width: 40px;
+  height: 1px;
+
+  background: #d4af37;
+}
+
+.reviewAuthor h3 {
+  color: #fff;
+
+  font-size: 16px;
+
+  font-weight: 400;
+}
+
+.reviewArrow {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(212, 175, 55, 0.5);
+
+  background: transparent;
+
+  color: #d4af37;
+
+  font-size: 30px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.reviewArrow:hover {
+  background: #d4af37;
+
+  color: #080808;
+}
+
+.reviewDots {
+  margin: 30px 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+}
+
+.dot,
+.activeDot {
+  width: 8px;
+  height: 8px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+.dot {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.activeDot {
+  width: 28px;
+
+  border-radius: 10px;
+
+  background: #d4af37;
+}
+
+.reviewButton {
+  padding: 14px 28px;
+
+  border: 1px solid #d4af37;
+
+  background: transparent;
+
+  color: #d4af37;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.reviewButton:hover {
+  background: #d4af37;
+
+  color: #080808;
+}
+
+
+/* ========================================
+   FAQ
+======================================== */
+
+.faq {
+  width: min(900px, 90%);
+
+  margin: auto;
+
+  padding: 150px 0;
+
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqList {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.faqItem {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+
+  background: #0d0d0d;
+
+  transition:
+    0.4s ease,
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faqQuestion {
+  width: 100%;
+
+  padding: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #fff;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.faqQuestion strong {
+  color: #d4af37;
+
+  font-size: 25px;
+
+  font-weight: 300;
+}
+
+.faqAnswer {
+  max-height: 0;
+
+  overflow: hidden;
+
+  transition: max-height 0.5s ease;
+}
+
+.faqActive .faqAnswer {
+  max-height: 300px;
+}
+
+.faqAnswer p {
+  padding: 0 25px 25px;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   FINAL CTA
+======================================== */
+
+.finalCta {
+  position: relative;
+
+  min-height: 650px;
+
+  padding: 80px 5%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background-position: center;
+
+  background-size: cover;
+
+  background-attachment: fixed;
+
+  text-align: center;
+}
+
+.finalOverlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.84);
+}
+
+.finalContent {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(850px, 100%);
+}
+
+
+/* ========================================
+   MODALS
+======================================== */
+
+.modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  padding: 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.95);
+
+  animation: modalShow 0.3s ease;
+}
+
+.modalImage {
+  max-width: 90vw;
+
+  max-height: 88vh;
+
+  object-fit: contain;
+
+  box-shadow:
+    0 20px 80px rgba(0, 0, 0, 0.8);
+}
+
+.closeButton {
+  position: absolute;
+
+  top: 20px;
+  right: 30px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #d4af37;
+
+  font-size: 45px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg);
+}
+
+.reviewModal {
+  position: relative;
+
+  width: min(600px, 100%);
+
+  padding: 60px 45px 45px;
+
+  border: 1px solid rgba(212, 175, 55, 0.3);
+
+  background: #0b0b0b;
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 80px rgba(0, 0, 0, 0.8);
+}
+
+.reviewModal h2 {
+  font-size: 38px;
+}
+
+.reviewForm {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.reviewForm input,
+.reviewForm textarea {
+  width: 100%;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  outline: none;
+
+  border: 1px solid rgba(212, 175, 55, 0.18);
+
+  background: #111;
+
+  color: #fff;
+
+  font-family: inherit;
+
+  transition: 0.3s ease;
+}
+
+.reviewForm input:focus,
+.reviewForm textarea:focus {
+  border-color: #d4af37;
+
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.08);
+}
+
+.reviewForm textarea {
+  min-height: 130px;
+
+  resize: vertical;
+}
+
+.rating {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.rating > span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rating button {
+  padding: 0 3px;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 25px;
+
+  cursor: pointer;
+}
+
+.selectedStar {
+  color: #d4af37;
+}
+
+.emptyStar {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.submitButton {
+  padding: 15px;
+
+  border: 1px solid #d4af37;
+
+  background: #d4af37;
+
+  color: #080808;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.submitButton:hover {
+  background: transparent;
+
+  color: #d4af37;
+}
+
+
+/* ========================================
+   SCROLL STATES
+======================================== */
+
+.scrollHidden {
+  opacity: 0;
+
+  transform: translateY(70px);
+}
+
+.scrollVisible {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  transition:
+    opacity 0.9s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* ========================================
+   STORY SCROLL
+======================================== */
+
+.story.scrollHidden .storyImageBox {
+  transform: translateX(-70px) scale(0.96);
+
+  opacity: 0;
+}
+
+.story.scrollVisible .storyImageBox {
+  transform: translateX(0) scale(1);
+
+  opacity: 1;
+}
+
+.story.scrollHidden .storyContent {
+  transform: translateX(70px);
+
+  opacity: 0;
+}
+
+.story.scrollVisible .storyContent {
+  transform: translateX(0);
+
+  opacity: 1;
+}
+
+.story.scrollHidden .goldLine {
+  width: 0;
+
+  opacity: 0;
+}
+
+.story.scrollVisible .goldLine {
+  width: 75px;
+
+  opacity: 1;
+}
+
+
+/* ========================================
+   CARD SCROLL
+======================================== */
+
+.cardHidden {
+  opacity: 0;
+
+  transform: translateY(70px) scale(0.96);
+}
+
+.cardVisible {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+}
+
+
+/* ========================================
+   NUMBERS SCROLL
+======================================== */
+
+.numberHidden {
+  opacity: 0;
+
+  transform: translateY(45px) scale(0.8);
+}
+
+.numberVisible {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+}
+
+.numberVisible strong {
+  animation: numberGlow 1.4s ease both;
+}
+
+
+/* ========================================
+   GALLERY SCROLL
+======================================== */
+
+.galleryHidden .galleryItem {
+  opacity: 0;
+
+  transform: translateY(60px) scale(0.94);
+}
+
+.galleryVisible .galleryItem {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+}
+
+
+/* ========================================
+   FAQ SCROLL
+======================================== */
+
+.faq.scrollHidden .faqItem {
+  opacity: 0;
+
+  transform: translateX(-35px);
+}
+
+.faq.scrollVisible .faqItem {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+.faq.scrollVisible .faqItem:nth-child(1) {
+  transition-delay: 0.05s;
+}
+
+.faq.scrollVisible .faqItem:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.faq.scrollVisible .faqItem:nth-child(3) {
+  transition-delay: 0.25s;
+}
+
+.faq.scrollVisible .faqItem:nth-child(4) {
+  transition-delay: 0.35s;
+}
+
+
+/* ========================================
+   GOLD SHINE
+======================================== */
+
+.storyImageBox::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 50%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.12),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  pointer-events: none;
+}
+
+.story.scrollVisible .storyImageBox::after {
+  animation: goldShine 1.4s ease 0.4s;
+}
+
+
+/* ========================================
+   KEYFRAMES
+======================================== */
+
+@keyframes heroShow {
+  from {
+    opacity: 0;
+
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollLine {
+  0%,
+  100% {
+    opacity: 0.3;
+
+    transform: scaleY(0.6);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: scaleY(1);
+  }
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes numberGlow {
+  0% {
+    opacity: 0;
+
+    transform: scale(0.7);
+
+    filter: blur(8px);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform: scale(1.08);
+
+    filter: blur(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes reviewChange {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.97);
+
+    filter: blur(6px);
+  }
+
+  45% {
+    opacity: 0.5;
+
+    transform:
+      translateY(8px)
+      scale(0.99);
+
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+  }
+}
+
+@keyframes reviewStars {
+  0% {
+    opacity: 0;
+
+    transform: translateY(-15px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes reviewText {
+  0% {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes reviewAuthor {
+  0% {
+    opacity: 0;
+
+    transform: translateY(15px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes reviewLight {
+  0% {
+    left: -100%;
+  }
+
+  50% {
+    left: 120%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes goldShine {
+  0% {
+    left: -120%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+  .story {
+    grid-template-columns: 1fr;
+
+    gap: 70px;
+  }
+
+  .storyContent {
+    max-width: 800px;
+  }
+
+  .experienceGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .numbersGrid {
+    grid-template-columns: 1fr 1fr;
+
+    row-gap: 50px;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 85vh;
+
+    background-attachment: scroll;
+  }
+
+  .heroContent h1 {
+    font-size: 42px;
+  }
+
+  .heroContent p {
+    font-size: 15px;
+  }
+
+  .scrollIndicator {
+    display: none;
+  }
+
+  .story {
+    padding: 90px 0;
+  }
+
+  .storyImageBox img {
+    height: 450px;
+  }
+
+  .storyFrame {
+    inset: 15px -15px -15px 15px;
+  }
+
+  .experience {
+    padding: 90px 5%;
+  }
+
+  .experienceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .experienceImage {
+    height: 320px;
+  }
+
+  .numbers {
+    padding: 80px 5%;
+
+    background-attachment: scroll;
+  }
+
+  .gallery {
+    padding: 90px 5%;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .galleryItem {
+    height: 280px;
+  }
+
+  .reviews {
+    padding: 90px 5%;
+  }
+
+  .reviewSlider {
+    gap: 8px;
+  }
+
+  .reviewCard {
+    min-height: 300px;
+
+    padding: 40px 20px;
+  }
+
+  .reviewText {
+    font-size: 15px;
+  }
+
+  .reviewArrow {
+    width: 35px;
+    height: 35px;
+
+    font-size: 24px;
+  }
+
+  .faq {
+    padding: 90px 0;
+  }
+
+  .finalCta {
+    min-height: 520px;
+
+    background-attachment: scroll;
+  }
+
+  .reviewModal {
+    padding: 55px 20px 30px;
+  }
+
+  .rating {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+}
+
+
+@media (max-width: 450px) {
+  .heroContent h1 {
+    font-size: 35px;
+  }
+
+  .heroButtons,
+  .finalButtons {
+    flex-direction: column;
+  }
+
+  .goldButton,
+  .outlineButton {
+    width: 100%;
+  }
+
+  .storyImageBox img {
+    height: 380px;
+  }
+
+  .numbersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryItem {
+    height: 350px;
+  }
+
+  .reviewSlider {
+    gap: 4px;
+  }
+
+  .reviewArrow {
+    width: 30px;
+    height: 30px;
+
+    font-size: 20px;
+  }
+
+  .reviewCard {
+    padding: 35px 15px;
+  }
+}

@@ -1,0 +1,1495 @@
+.reservation {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 20px 100px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(201, 174, 85, 0.09),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(184, 138, 68, 0.07),
+      transparent 28%
+    ),
+    #0b0b0b;
+}
+
+
+/* =========================================
+   BACKGROUND DECORATION
+========================================= */
+
+.reservation::before {
+  content: "";
+
+  position: absolute;
+
+  width: 650px;
+  height: 650px;
+
+  top: -300px;
+  left: -300px;
+
+  border: 1px solid rgba(201, 174, 85, 0.08);
+
+  border-radius: 50%;
+
+  animation: rotateBackground 30s linear infinite;
+
+  pointer-events: none;
+}
+
+.reservation::after {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  right: -250px;
+  bottom: -200px;
+
+  border: 1px solid rgba(201, 174, 85, 0.06);
+
+  border-radius: 50%;
+
+  animation: rotateBackgroundReverse 25s linear infinite;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(201, 174, 85, 0.04),
+      transparent 40%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: 1180px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.heading {
+  text-align: center;
+
+  margin-bottom: 70px;
+
+  animation: headingAppear 0.9s ease both;
+}
+
+.smallTitle {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  color: #c9ae55;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 5px;
+}
+
+.heading h1 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: clamp(42px, 6vw, 72px);
+
+  font-weight: 300;
+
+  line-height: 1.1;
+}
+
+.heading h1 span {
+  color: #c9ae55;
+
+  font-weight: 400;
+
+  text-shadow:
+    0 0 30px rgba(201, 174, 85, 0.15);
+}
+
+.heading p {
+  max-width: 650px;
+
+  margin: 24px auto 0;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   HALL SECTION
+========================================= */
+
+.hallSection {
+  margin-bottom: 75px;
+
+  animation: formAppear 0.9s ease 0.15s both;
+}
+
+.hallTitle {
+  text-align: center;
+
+  margin-bottom: 38px;
+}
+
+.hallTitle > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #c9ae55;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 4px;
+}
+
+.hallTitle h2 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 34px;
+
+  font-weight: 300;
+}
+
+.hallTitle h2 strong {
+  color: #c9ae55;
+
+  font-weight: 500;
+}
+
+.hallTitle p {
+  max-width: 600px;
+
+  margin: 14px auto 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   HALL GRID
+========================================= */
+
+.hallGrid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 24px;
+}
+
+
+/* =========================================
+   HALL CARD
+========================================= */
+
+.hallCard {
+  position: relative;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  border: 1px solid rgba(201, 174, 85, 0.15);
+
+  border-radius: 4px;
+
+  transition:
+    transform 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+
+  animation: hallAppear 0.8s ease both;
+}
+
+.hallCard:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.hallCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.hallCard:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(201, 174, 85, 0.55);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 0 35px rgba(201, 174, 85, 0.08);
+}
+
+
+/* =========================================
+   RADIO
+========================================= */
+
+.hallCard input[type="radio"] {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   HALL IMAGE
+========================================= */
+
+.hallImage {
+  position: relative;
+
+  width: 100%;
+
+  height: 285px;
+
+  overflow: hidden;
+}
+
+.hallImage img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter: brightness(0.82);
+
+  transition:
+    transform 0.8s ease,
+    filter 0.8s ease;
+}
+
+.hallCard:hover .hallImage img {
+  transform: scale(1.08);
+
+  filter: brightness(0.95);
+}
+
+
+/* =========================================
+   IMAGE OVERLAY
+========================================= */
+
+.imageOverlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.15) 35%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   HALL NUMBER
+========================================= */
+
+.hallNumber {
+  position: absolute;
+
+  top: 18px;
+  left: 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  color: #fff;
+
+  font-size: 11px;
+
+  letter-spacing: 1px;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  backdrop-filter: blur(7px);
+
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.hallCard:hover .hallNumber {
+  color: #111;
+
+  background: #c9ae55;
+
+  border-color: #c9ae55;
+}
+
+
+/* =========================================
+   SELECTED ICON
+========================================= */
+
+.selectedIcon {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  color: #111;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  background: #c9ae55;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  transform: scale(0.4) rotate(-30deg);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+
+/* =========================================
+   HALL INFO
+========================================= */
+
+.hallInfo {
+  position: relative;
+
+  padding: 25px 25px 28px;
+}
+
+.hallInfo h3 {
+  margin: 0 0 10px;
+
+  color: #fff;
+
+  font-size: 22px;
+
+  font-weight: 400;
+
+  transition: color 0.3s ease;
+}
+
+.hallCard:hover .hallInfo h3 {
+  color: #c9ae55;
+}
+
+.hallInfo p {
+  min-height: 48px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+.chooseText {
+  display: inline-block;
+
+  margin-top: 19px;
+
+  color: #c9ae55;
+
+  font-size: 11px;
+
+  letter-spacing: 1px;
+
+  transition:
+    letter-spacing 0.35s ease,
+    color 0.35s ease;
+}
+
+.hallCard:hover .chooseText {
+  color: #fff;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================
+   SELECTED HALL
+========================================= */
+
+.selected {
+  transform: translateY(-8px);
+
+  border-color: #c9ae55;
+
+  box-shadow:
+    0 0 0 1px rgba(201, 174, 85, 0.35),
+    0 25px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(201, 174, 85, 0.12);
+}
+
+.selected .selectedIcon {
+  opacity: 1;
+
+  transform: scale(1) rotate(0deg);
+
+  box-shadow:
+    0 0 25px rgba(201, 174, 85, 0.35);
+}
+
+.selected .hallImage img {
+  transform: scale(1.06);
+
+  filter: brightness(0.95);
+}
+
+.selected .hallNumber {
+  color: #111;
+
+  background: #c9ae55;
+
+  border-color: #c9ae55;
+}
+
+.selected .chooseText {
+  color: #fff;
+}
+
+
+/* =========================================
+   HALL ERROR
+========================================= */
+
+.hallError {
+  margin-top: 18px;
+
+  text-align: center;
+
+  color: #d8b75c;
+
+  font-size: 13px;
+
+  animation: errorAppear 0.3s ease;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form {
+  position: relative;
+
+  padding: 55px 50px 50px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  border: 1px solid rgba(201, 174, 85, 0.16);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.35);
+
+  animation: formAppear 0.9s ease 0.3s both;
+}
+
+.form::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 15%;
+
+  width: 70%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c9ae55,
+      transparent
+    );
+
+  box-shadow:
+    0 0 20px rgba(201, 174, 85, 0.4);
+
+  animation: lineGlow 3s ease-in-out infinite;
+}
+
+
+/* =========================================
+   FORM TITLE
+========================================= */
+
+.formTitle {
+  text-align: center;
+
+  margin-bottom: 38px;
+}
+
+.formTitle > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #c9ae55;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 4px;
+}
+
+.formTitle h2 {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 32px;
+
+  font-weight: 300;
+}
+
+.formTitle h2 strong {
+  color: #c9ae55;
+
+  font-weight: 500;
+}
+
+
+/* =========================================
+   FORM GRID
+========================================= */
+
+.formGrid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 25px;
+}
+
+
+/* =========================================
+   INPUT GROUP
+========================================= */
+
+.inputGroup {
+  margin-bottom: 25px;
+}
+
+.inputGroup label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 12px;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   INPUT / SELECT / TEXTAREA
+   ՔՈ ՊԱՀԱՆՋԱԾ ANIMATION-Ը
+========================================= */
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  position: relative;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 15px 16px;
+
+  border: 1px solid rgba(201, 174, 85, 0.25);
+
+  border-radius: 4px;
+
+  outline: none;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(201, 174, 85, 0.06),
+      rgba(255, 255, 255, 0.02),
+      rgba(201, 174, 85, 0.08)
+    ),
+    #111;
+
+  background-size: 200% 200%;
+
+  color: #fff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.3s ease;
+
+  animation: inputGradient 5s ease infinite;
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.inputGroup input::placeholder,
+.inputGroup textarea::placeholder {
+  color: #666;
+
+  transition: color 0.3s ease;
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.inputGroup input:hover,
+.inputGroup select:hover,
+.inputGroup textarea:hover {
+  border-color: rgba(201, 174, 85, 0.55);
+
+  box-shadow:
+    0 0 15px rgba(201, 174, 85, 0.08),
+    inset 0 0 20px rgba(201, 174, 85, 0.03);
+}
+
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+  border-color: #c9ae55;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(201, 174, 85, 0.13),
+      rgba(255, 255, 255, 0.03),
+      rgba(201, 174, 85, 0.10)
+    ),
+    #111;
+
+  background-size: 200% 200%;
+
+  box-shadow:
+    0 0 8px rgba(201, 174, 85, 0.18),
+    0 0 25px rgba(201, 174, 85, 0.08),
+    inset 0 0 18px rgba(201, 174, 85, 0.05);
+
+  transform: translateY(-2px);
+
+  animation:
+    inputGradient 3s ease infinite,
+    inputGlow 2s ease-in-out infinite;
+}
+
+
+/* =========================================
+   FOCUS PLACEHOLDER
+========================================= */
+
+.inputGroup input:focus::placeholder,
+.inputGroup textarea:focus::placeholder {
+  color: #888;
+}
+
+
+/* =========================================
+   SELECT
+========================================= */
+
+.inputGroup select {
+  cursor: pointer;
+
+  appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #c9ae55 50%),
+    linear-gradient(135deg, #c9ae55 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 15px) 50%;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat: no-repeat;
+}
+
+.inputGroup select option {
+  color: #fff;
+
+  background: #111;
+}
+
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.inputGroup textarea {
+  resize: vertical;
+
+  min-height: 120px;
+}
+
+
+/* =========================================
+   INPUT GRADIENT ANIMATION
+========================================= */
+
+@keyframes inputGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* =========================================
+   INPUT GLOW ANIMATION
+========================================= */
+
+@keyframes inputGlow {
+  0% {
+    box-shadow:
+      0 0 8px rgba(201, 174, 85, 0.15),
+      0 0 20px rgba(201, 174, 85, 0.05),
+      inset 0 0 15px rgba(201, 174, 85, 0.03);
+  }
+
+  50% {
+    box-shadow:
+      0 0 12px rgba(201, 174, 85, 0.28),
+      0 0 35px rgba(201, 174, 85, 0.10),
+      inset 0 0 22px rgba(201, 174, 85, 0.06);
+  }
+
+  100% {
+    box-shadow:
+      0 0 8px rgba(201, 174, 85, 0.15),
+      0 0 20px rgba(201, 174, 85, 0.05),
+      inset 0 0 15px rgba(201, 174, 85, 0.03);
+  }
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.submitButton {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 18px 25px;
+
+  overflow: hidden;
+
+  color: #111;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  background: #c9ae55;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.submitButton::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+
+  transition: left 0.7s ease;
+}
+
+.submitButton:hover::before {
+  left: 100%;
+}
+
+.submitButton:hover {
+  transform: translateY(-3px);
+
+  background: #d5bd70;
+
+  box-shadow:
+    0 12px 35px rgba(201, 174, 85, 0.25);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+.arrow {
+  font-size: 20px;
+
+  transition: transform 0.35s ease;
+}
+
+.submitButton:hover .arrow {
+  transform: translateX(7px);
+}
+
+
+/* =========================================
+   MODAL OVERLAY
+========================================= */
+
+.modalOverlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.8);
+
+  backdrop-filter: blur(8px);
+
+  animation: modalFade 0.35s ease;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 460px;
+
+  padding: 50px 35px 40px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #171717,
+      #0d0d0d
+    );
+
+  border: 1px solid rgba(201, 174, 85, 0.35);
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(201, 174, 85, 0.08);
+
+  animation: modalShow 0.45s ease;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.closeButton {
+  position: absolute;
+
+  top: 15px;
+  right: 18px;
+
+  width: 35px;
+  height: 35px;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 25px;
+
+  background: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.closeButton:hover {
+  color: #c9ae55;
+
+  transform: rotate(90deg);
+}
+
+
+/* =========================================
+   SUCCESS ICON
+========================================= */
+
+.successIcon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 25px;
+
+  color: #111;
+
+  font-size: 35px;
+
+  background: #c9ae55;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 35px rgba(201, 174, 85, 0.25);
+
+  animation: successPop 0.6s ease;
+}
+
+
+/* =========================================
+   MODAL TEXT
+========================================= */
+
+.modal h2 {
+  margin: 0 0 15px;
+
+  color: #fff;
+
+  font-size: 27px;
+
+  font-weight: 400;
+}
+
+.modal p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   MODAL BUTTON
+========================================= */
+
+.modalButton {
+  margin-top: 30px;
+
+  padding: 13px 35px;
+
+  color: #111;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  background: #c9ae55;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.modalButton:hover {
+  transform: translateY(-2px);
+
+  background: #d5bd70;
+
+  box-shadow:
+    0 8px 25px rgba(201, 174, 85, 0.25);
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes rotateBackground {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateBackgroundReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes headingAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes formAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes hallAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes errorAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+
+    transform: scale(0.4);
+  }
+
+  70% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .reservation {
+    padding-top: 100px;
+  }
+
+  .hallGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hallImage {
+    height: 320px;
+  }
+
+  .hallInfo p {
+    min-height: auto;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .reservation {
+    padding: 80px 16px 70px;
+  }
+
+  .heading {
+    margin-bottom: 50px;
+  }
+
+  .heading h1 {
+    font-size: 42px;
+  }
+
+  .heading p {
+    font-size: 14px;
+  }
+
+  .hallSection {
+    margin-bottom: 55px;
+  }
+
+  .hallTitle h2 {
+    font-size: 28px;
+  }
+
+  .hallGrid {
+    gap: 18px;
+  }
+
+  .hallImage {
+    height: 270px;
+  }
+
+  .form {
+    padding: 40px 22px 35px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .formTitle h2 {
+    font-size: 28px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .reservation {
+    padding: 65px 12px 55px;
+  }
+
+  .smallTitle {
+    font-size: 9px;
+
+    letter-spacing: 3px;
+  }
+
+  .heading h1 {
+    font-size: 34px;
+  }
+
+  .heading p {
+    font-size: 13px;
+  }
+
+  .hallTitle h2 {
+    font-size: 25px;
+  }
+
+  .hallTitle p {
+    font-size: 13px;
+  }
+
+  .hallImage {
+    height: 220px;
+  }
+
+  .hallInfo {
+    padding: 20px;
+  }
+
+  .hallInfo h3 {
+    font-size: 20px;
+  }
+
+  .hallInfo p {
+    font-size: 13px;
+  }
+
+  .form {
+    padding: 35px 17px 30px;
+  }
+
+  .formTitle h2 {
+    font-size: 25px;
+  }
+
+  .inputGroup input,
+  .inputGroup select,
+  .inputGroup textarea {
+    padding: 14px;
+  }
+
+  .submitButton {
+    padding: 16px;
+  }
+
+  .modal {
+    padding: 45px 22px 30px;
+  }
+
+  .modal h2 {
+    font-size: 23px;
+  }
+
+  .modal p {
+    font-size: 13px;
+  }
+}
+
+.submitButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .reservation::before,
+  .reservation::after,
+  .heading,
+  .hallSection,
+  .hallCard,
+  .form,
+  .successIcon {
+    animation: none;
+  }
+
+  .hallCard,
+  .hallImage img,
+  .selectedIcon,
+  .submitButton,
+  .arrow,
+  .modal,
+  .inputGroup input,
+  .inputGroup select,
+  .inputGroup textarea {
+    transition: none;
+  }
+}
