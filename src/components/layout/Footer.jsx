@@ -1,3 +1,4 @@
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -18,7 +19,7 @@ function Footer() {
           {/* Logo */}
 
           <div className={styles.brand}>
-           <h2 className={styles.logo}>Kamancha</h2>
+            <h2 className={styles.logo}>Kamancha</h2>
 
             <p>
               Հայկական ավանդական խոհանոց, փիդեներ, կենդանի երաժշտություն և
@@ -26,15 +27,30 @@ function Footer() {
             </p>
 
             <div className={styles.socials}>
-              <a href="https://www.instagram.com/kamancha_yerevan/?utm_source=chatgpt.com">
+              <a
+                href="https://www.facebook.com/kamancharest/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+              >
                 <FaFacebookF />
               </a>
 
-              <a href="https://www.tiktok.com/@kamancha_yerevan?utm_source=chatgpt.com">
+              <a
+                href="https://www.instagram.com/kamancha_yerevan/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+              >
                 <FaInstagram />
               </a>
 
-              <a href="https://www.facebook.com/kamancharest/?utm_source=chatgpt.com">
+              <a
+                href="https://www.tiktok.com/@kamancha_yerevan"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="TikTok"
+              >
                 <FaTiktok />
               </a>
             </div>
@@ -62,24 +78,21 @@ function Footer() {
 
             <div className={styles.contactItem}>
               <FaMapMarkerAlt />
-
               <span>ք. Երևան, Տումանյան 24</span>
             </div>
 
             <div className={styles.contactItem}>
               <FaPhoneAlt />
-
               <span>+374 00 000 000</span>
             </div>
 
             <div className={styles.contactItem}>
               <FaEnvelope />
-
               <span>info@kamancha.am</span>
             </div>
           </div>
 
-          {/* Newsletter */}
+          {/* Newsletter and Registration */}
 
           <div>
             <h3>Բաժանորդագրվեք</h3>
@@ -88,13 +101,28 @@ function Footer() {
               Ստացեք նոր առաջարկներն ու միջոցառումների մասին տեղեկություններ։
             </p>
 
-            <div className={styles.newsletter}>
+            {/* <div className={styles.newsletter}>
               <input
                 type="email"
                 placeholder="Ձեր էլ. հասցեն"
+                aria-label="Ձեր էլեկտրոնային հասցեն"
               />
 
-              <button>Ուղարկել</button>
+              <button type="button">Ուղարկել</button>
+            </div> */}
+
+            <div className={styles.registration}>
+              <NavLink
+                to="/registration"
+                className={styles.registrationButton}
+              >
+                Գրանցվել
+              </NavLink>
+
+              <p>
+                Արդեն ունե՞ք հաշիվ։{" "}
+                <NavLink to="/login">Մուտք գործել</NavLink>
+              </p>
             </div>
           </div>
         </div>
@@ -106,7 +134,10 @@ function Footer() {
         </div>
       </div>
 
-      {/* <div>
+      {/* Map */}
+
+      {/*
+      <div>
         <h3>Մեր գտնվելու վայրը</h3>
 
         <div className={styles.map}>
@@ -117,7 +148,8 @@ function Footer() {
             allowFullScreen
           ></iframe>
         </div>
-      </div> */}
+      </div>
+      */}
     </footer>
   );
 }

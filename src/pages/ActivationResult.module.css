@@ -1,0 +1,79 @@
+
+.page {
+  min-height: 100vh;
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: #0b0b0b;
+  color: #f5f0e5;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  padding: 36px 28px;
+  box-sizing: border-box;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 18px;
+  background: #141414;
+  text-align: center;
+}
+
+.successIcon,
+.errorIcon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d4af37;
+  border-radius: 50%;
+  color: #d4af37;
+  font-size: 30px;
+}
+
+.errorIcon {
+  border-color: #ff8585;
+  color: #ff8585;
+}
+
+.card h1 {
+  font-size: 25px;
+}
+
+.card p {
+  color: #bbb;
+  line-height: 1.7;
+}
+
+.button {
+  display: block;
+  margin-top: 24px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #d4af37;
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.homeLink {
+  display: inline-block;
+  margin-top: 20px;
+  color: #d4af37;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .card h1 {
+    font-size: 22px;
+  }
+}

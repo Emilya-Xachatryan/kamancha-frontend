@@ -11,6 +11,9 @@ import Contact from "../pages/Contact";
 import ProductDetails from "../pages/ProductDetails";
 import Favorites from "../pages/Favorites";
 import Cart from "../pages/Cart";
+import Registration from "../pages/Registration";
+import Login from "../pages/Login";
+import ActivationResult from "../pages/ActivationResult";
 
 function AppRoutes() {
   return (
@@ -44,6 +47,9 @@ function AppRoutes() {
           path="contact"
           element={<Contact />}
         />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/activation-result" element={<ActivationResult />} />
 
       </Route>
     </Routes>

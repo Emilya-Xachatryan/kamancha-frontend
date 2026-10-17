@@ -398,6 +398,44 @@
   }
 }
 
+.registration {
+  margin-top: 18px;
+}
+
+.registrationButton {
+  display: inline-block;
+  padding: 10px 24px;
+  margin-bottom: 12px;
+  background: #c9ae55;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid #c9ae55;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.registrationButton:hover {
+  background: transparent;
+  color: #c9ae55;
+}
+
+.registration p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.registration p a {
+  color: #c9ae55;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.registration p a:hover {
+  color: #fff;
+}
+
 /* ================================================= */
 /* TABLET */
 /* ================================================= */
